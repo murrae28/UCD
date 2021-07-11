@@ -13,6 +13,7 @@ print(missing_values_count[0:5])
 #If missing data is detecting, drop entire row
 droprows= data.dropna()
 print(data.shape,droprows.shape)
+print(data[:3])
 
 #Drop all rows that are duplicate
 drop_duplicates= data.drop_duplicates()
@@ -20,3 +21,8 @@ print(data.shape,drop_duplicates.shape)
 
 #Identifying what rows have a A type rating
 is_a_rating=print(data['Rating'].isin(['A', 'AA', 'AAA']))
+index=['A', 'AA', 'AAA']
+#print(data.loc['A'])
+
+
+
