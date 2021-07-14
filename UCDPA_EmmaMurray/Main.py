@@ -21,8 +21,15 @@ print(data.shape,drop_duplicates.shape)
 
 #Identifying what rows have a A type rating
 is_a_rating=print(data['Rating'].isin(['A', 'AA', 'AAA']))
-index=['A', 'AA', 'AAA']
+Rating_A =['A', 'AA', 'AAA']
 #print(data.loc['A'])
+
+avg_ratio_rating =pd.pivot_table(data, index =['Name', 'Rating'], values = 'currentRatio', aggfunc='mean')
+print(avg_ratio_rating)
+
+
+
+
 
 
 
