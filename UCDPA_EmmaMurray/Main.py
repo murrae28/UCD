@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 #importing file from kaggle
 data=pd.read_csv("corporate_rating.csv")
 
@@ -22,10 +23,14 @@ print(data.shape,drop_duplicates.shape)
 #Identifying what rows have a A type rating
 is_a_rating=print(data['Rating'].isin(['A', 'AA', 'AAA']))
 Rating_A =['A', 'AA', 'AAA']
-#print(data.loc['A'])
 
-avg_ratio_rating =pd.pivot_table(data, index =['Name', 'Rating'], values = 'currentRatio', aggfunc='mean')
-print(avg_ratio_rating)
+
+print(data.loc[(data.Name == 'Whirlpool Corporation') & (data.Rating == 'A')])
+
+
+#avg_ratio_rating =pd.pivot_table(data, index =['Name'], columns='Rating', values = 'currentRatio', aggfunc='mean')
+#print(avg_ratio_rating)
+
 
 
 
