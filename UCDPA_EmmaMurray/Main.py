@@ -24,8 +24,10 @@ print(data.shape,drop_duplicates.shape)
 is_a_rating=print(data['Rating'].isin(['A', 'AA', 'AAA']))
 Rating_A =['A', 'AA', 'AAA']
 
+print(data.loc[(data.Name == 'Whirlpool Corporation') & (data.Rating == 'AAA')])
 
-print(data.loc[(data.Name == 'Whirlpool Corporation') & (data.Rating == 'A')])
+#Counting ratings by company name
+print(data.groupby(['Name', 'Rating']).Rating.count())
 
 
 #avg_ratio_rating =pd.pivot_table(data, index =['Name'], columns='Rating', values = 'currentRatio', aggfunc='mean')
