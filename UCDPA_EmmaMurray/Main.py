@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import requests
 
 #importing file from kaggle
 data=pd.read_csv("corporate_rating.csv")
@@ -26,6 +27,16 @@ print(data.shape,drop_duplicates.shape)
 #Identifying what rows have a A type rating
 is_a_rating=print(data['Rating'].isin(['A', 'AA', 'AAA']))
 Rating_A =['A', 'AA', 'AAA']
+
+#Creating subset for only A rated companies
+Only_A= data[data['Rating'] == 'A']
+print(Only_A.head())
+
+
+#Company_rating_A = data[["Name", "Rating"]]
+#Company_rating_A.head()
+
+
 
 print(data.loc[(data.Name == 'Whirlpool Corporation') & (data.Rating == 'AAA')])
 
@@ -71,10 +82,8 @@ avg_ratio_rating =pd.pivot_table(data, index =['Rating'], values = 'currentRatio
 print(avg_ratio_rating)
 
 
-
-
-
-
-
-
+for i in (Company):
+    print(i)
+    if i == '*z':
+        break
 
