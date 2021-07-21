@@ -31,8 +31,11 @@ Rating_A =['A', 'AA', 'AAA']
 Only_A= data[data['Rating'] == 'A']
 print(Only_A.head())
 
+#Converting Margins % to whole numbers
 data['GrossMarg'] = data['grossProfitMargin'] * 100
-print(data['GrossMarg'].head(5))
+data['NetProf_Marg'] = data['netProfitMargin'] * 100
+data['OpProf_Marg'] = data['operatingProfitMargin'] * 100
+#print(data['GrossMarg'].head(5))
 
 bar=data.groupby('Sector')["GrossMarg"].mean()
 bar.plot(kind='bar', rot=45)
@@ -71,37 +74,42 @@ print(data.shape)
 data['Year'] = pd.DatetimeIndex(data['Date']).year
 print(data.Year)
 
-sector_grouped = data.groupby('Rating').sum()[['freeCashFlowPerShare','cashPerShare']]
+sector_grouped = data.groupby('Rating').sum()[['GrossMarg','OpProf_Marg','NetProf_Marg']]
 print(sector_grouped)
 # define figure
 fig, ax = plt.subplots(1, figsize=(16, 6))
 # numerical x
 x = np.arange(0, len(sector_grouped.index))
 # plot bars
-plt.bar(x - 0.3, sector_grouped['freeCashFlowPerShare'], width = 0.2, color = '#1D2F6F')
-#plt.bar(x - 0.1, sector_grouped['operatingProfitMargin'], width = 0.2, color = '#8390FA')
-plt.bar(x + 0.1, sector_grouped['cashPerShare'], width = 0.2, color = '#6EAF46')
+plt.bar(x - 0.3, sector_grouped['GrossMarg'], width = 0.2, color = '#1D2F6F')
+plt.bar(x - 0.1, sector_grouped['OpProf_Marg'], width = 0.2, color = '#8390FA')
+plt.bar(x + 0.1, sector_grouped['NetProf_Marg'], width = 0.2, color = '#ff1493')
+
+# remove spines
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
 
 # x y details
-#plt.ylabel('Percentage')
+plt.ylabel('Margin')
 plt.xticks(x, sector_grouped.index)
+#plt.xlim(5, 31)
+
+# grid lines
+ax.set_axisbelow(True)
+ax.yaxis.grid(color='gray', linestyle='dashed', alpha=0.2)
+
+# title and legend
+plt.title('Gross, OP, Net Profit Margins by Rating', loc ='left')
+plt.legend(['NPM', 'OPM', 'GPM'], loc='upper left', ncol = 4)
+plt.show()
 
 plt.show()
 
-avg_ratio_rating =pd.pivot_table(data, index =['Rating'], values = 'currentRatio', aggfunc='mean')
+avg_ratio_rating =pd.pivot_table(data, index =['Rating'], values = 'daysOfSalesOutstanding', aggfunc='mean')
 print(avg_ratio_rating)
-
-data['GrossMarg'] = data['grossProfitMargin'] * 100
-print(data['GrossMarg'].head(5))
-
-bar=data.groupby('Sector')["GrossMarg"].mean()
-bar.plot(kind='bar', rot=45)
+avg_ratio_rating.plot(kind='line')
 plt.show()
 
-#for i in (Company):
-    #print(i)
-    #if i == '*z':
-        #break
 
 
 
