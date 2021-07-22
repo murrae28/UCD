@@ -36,28 +36,19 @@ data['OpProf_Marg'] = data['operatingProfitMargin'] * 100
 #print(data['GrossMarg'].head(5))
 
 bar=data.groupby('Sector')["GrossMarg"].mean()
-bar.plot(kind='bar', color = 'green',rot=45, fontsize=5)
+bar.plot(kind='barh', color = '#00cc99',rot=45, fontsize=5)
 plt.title('Gross Margin Avg per Sector', fontsize=14)
+plt.ylabel("Sector")
 plt.show()
 
-#Company_rating_A = data[["Name", "Rating"]]
-#Company_rating_A.head()
+#Insight; Max company equity multiplier by rating
+print(data.groupby(['Rating'], as_index=False).companyEquityMultiplier.max())
 
-
-print(data.loc[(data.Name == 'Whirlpool Corporation')])
-
-
-
-
-#Counting ratings by company name
-print(data.groupby(['Name', 'Rating'], as_index=False).Rating.count())
-#plt.bar('Rating', 'Sector')
-#plt.show()
 
 sector_grouped = data.groupby('Sector').sum()[['grossProfitMargin','operatingProfitMargin','netProfitMargin']]
 print(sector_grouped)
 
-
+#Insight into Finance Sector
 data_sector =data.loc[data['Sector'] == 'Finance']
 Company= ['Equifax, Inc.', 'Marsh & McLennan Companies, Inc.', 'Aon plc', 'S&P Global Inc.', 'Progressive Corporation (The)', 'Loews Corporation']
 data.loc[data['Name'].isin(Company)]
@@ -103,9 +94,12 @@ plt.show()
 
 plt.show()
 
+#Chart for insight, average days of sales outstanding by rating
 avg_ratio_rating =pd.pivot_table(data, index =['Rating'], values = 'daysOfSalesOutstanding', aggfunc='mean')
 print(avg_ratio_rating)
-avg_ratio_rating.plot(kind='line')
+avg_ratio_rating.plot(kind='line', color='#FF6433')
+plt.title('Avg days of sales outstanding by Rating')
+plt.grid(True)
 plt.show()
 
 ## sort values
