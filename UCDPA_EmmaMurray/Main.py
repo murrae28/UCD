@@ -116,6 +116,19 @@ sorted_data= data.sort_values(by=["Name", "Sector"])
 sorted_data.sort_index(axis=1, ascending =False)
 print(sorted_data.head())
 
+Loop_index = [['Name', 'Sector', 'Rating']]
+
+#for loop with a skipping with continue filter
+Name_symbols = dict([['MMM', '3M Company'], ['ABB', 'ABB Ltd'], ['ACN', 'Accenture plc']])
+Name_symbols['ACCO'] = 'Acco Brands Corporation'
+for k in Name_symbols:
+    if k =='ABB':
+        continue
+    print(k)
+
+
+
+
 
 
 
