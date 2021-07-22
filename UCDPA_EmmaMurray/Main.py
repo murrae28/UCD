@@ -27,9 +27,7 @@ print(data.shape,drop_duplicates.shape)
 #Identifying what rows have a A type rating
 is_a_rating=print(data['Rating'].isin(['A', 'AA', 'AAA']))
 Rating_A =['A', 'AA', 'AAA']
-#Creating subset for only A rated companies
-Only_A= data[data['Rating'] == 'A']
-print(Only_A.head())
+
 
 #Converting Margins % to whole numbers
 data['GrossMarg'] = data['grossProfitMargin'] * 100
@@ -38,16 +36,16 @@ data['OpProf_Marg'] = data['operatingProfitMargin'] * 100
 #print(data['GrossMarg'].head(5))
 
 bar=data.groupby('Sector')["GrossMarg"].mean()
-bar.plot(kind='bar', rot=45)
+bar.plot(kind='bar', color = 'green',rot=45, fontsize=5)
+plt.title('Gross Margin Avg per Sector', fontsize=14)
 plt.show()
 
 #Company_rating_A = data[["Name", "Rating"]]
 #Company_rating_A.head()
 
 
-print(data.loc[(data.Name == 'Whirlpool Corporation') & (data.Rating == 'AAA')])
-data.plot(x='Rating', y='cashPerShare', kind ='line', rot=45)
-plt.show()
+print(data.loc[(data.Name == 'Whirlpool Corporation')])
+
 
 
 
@@ -126,11 +124,17 @@ for k in Name_symbols:
         continue
     print(k)
 
-#Focus on healthcare Sector
-newdf= data[(data.Sector == 'Health Care')]
-print(newdf[['Name', 'Rating', 'debtEquityRatio', 'assetTurnover']])
+#Insight Focus on healthcare Sector
+sector_data= data[(data.Sector == 'Health Care') & (data.Rating == 'CCC')]
+print(sector_data[['Name', 'Rating', 'debtEquityRatio', 'assetTurnover', 'payablesTurnover']])
 
+#Insight to AAA Ratings
+best_rating = data[data['Rating'].str[2] == 'A']
+print(best_rating[['Name', 'Rating', 'Rating Agency Name', 'Date','netProfitMargin', 'operatingProfitMargin', 'ebitPerRevenue', 'currentRatio', 'cashPerShare']])
 
+#Insight to company AT&T
+data.set_index("Name", inplace=True)
+print(data.loc[['AT&T Inc.'], ['Rating', 'currentRatio', 'quickRatio', 'cashRatio']])
 
 
 
