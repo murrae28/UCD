@@ -45,8 +45,6 @@ plt.show()
 #Company_rating_A.head()
 
 
-
-
 print(data.loc[(data.Name == 'Whirlpool Corporation') & (data.Rating == 'AAA')])
 data.plot(x='Rating', y='cashPerShare', kind ='line', rot=45)
 plt.show()
@@ -67,6 +65,8 @@ Company= ['Equifax, Inc.', 'Marsh & McLennan Companies, Inc.', 'Aon plc', 'S&P G
 data.loc[data['Name'].isin(Company)]
 print(data.head())
 print(data.shape)
+print(data[['Name', 'Rating', 'debtEquityRatio', 'assetTurnover', 'netProfitMargin']])
+
 #plt.bar(Company, 'grossProfitMargin')
 #plt.show()
 
@@ -125,6 +125,14 @@ for k in Name_symbols:
     if k =='ABB':
         continue
     print(k)
+
+#Focus on healthcare Sector
+newdf= data[(data.Sector == 'Health Care')]
+print(newdf[['Name', 'Rating', 'debtEquityRatio', 'assetTurnover']])
+
+
+
+
 
 
 
