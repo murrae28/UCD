@@ -110,6 +110,16 @@ print(avg_ratio_rating)
 avg_ratio_rating.plot(kind='line')
 plt.show()
 
+## sort values
+#Sector_grouped = data.sort_values('Sector')
+sorted_data= data.sort_values(by=["Name", "Sector"])
+sorted_data.sort_index(axis=1, ascending =False)
+print(sorted_data.head())
+
+
+
+
+
 
 
 
