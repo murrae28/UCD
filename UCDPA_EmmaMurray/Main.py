@@ -136,7 +136,10 @@ print(best_rating[['Name', 'Rating', 'Rating Agency Name', 'Date','netProfitMarg
 data.set_index("Name", inplace=True)
 print(data.loc[['AT&T Inc.'], ['Rating', 'currentRatio', 'quickRatio', 'cashRatio']])
 
-
+url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=IBM&apikey=G3AIAWSMKK6WO6H9'
+r = requests.get(url)
+data = r.json()
+print(r.text)
 
 
 
