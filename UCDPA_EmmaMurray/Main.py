@@ -6,6 +6,12 @@ import requests
 
 #importing file from kaggle
 data=pd.read_csv("corporate_rating.csv")
+data2=pd.read_csv("yahoo_stock.csv")
+
+data_combined= pd.concat([data, data2])
+print(data_combined.shape)
+#data.append([data, data2], ignore_index=True, sort=True)
+#data.append(data2)
 
 #running small checks to determine size of dataset
 print(data.head())
