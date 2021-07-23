@@ -41,11 +41,11 @@ data['NetProf_Marg'] = data['netProfitMargin'] * 100
 data['OpProf_Marg'] = data['operatingProfitMargin'] * 100
 #print(data['GrossMarg'].head(5))
 
-bar=data.groupby('Sector')["GrossMarg"].mean()
-bar.plot(kind='barh', color = '#00cc99',rot=45, fontsize=5)
-plt.title('Gross Margin Avg per Sector', fontsize=14)
-plt.ylabel("Sector")
-plt.show()
+#bar=data.groupby('Sector')["GrossMarg"].mean()
+#bar.plot(kind='barh', color = '#00cc99',rot=45, fontsize=5)
+#plt.title('Gross Margin Avg per Sector', fontsize=14)
+#plt.ylabel("Sector")
+#plt.show()
 
 #Insight; Max company equity multiplier by rating
 print(data.groupby(['Rating'], as_index=False).companyEquityMultiplier.max())
@@ -128,25 +128,26 @@ for k in Name_symbols:
 sector_data= data[(data.Sector == 'Health Care') & (data.Rating == 'CCC')]
 print(sector_data[['Name', 'Rating', 'debtEquityRatio', 'assetTurnover', 'payablesTurnover']])
 
-#Insight to AAA Ratings
-best_rating = data[data['Rating'].str[2] == 'A']
-print(best_rating[['Name', 'Rating', 'Rating Agency Name', 'Date','netProfitMargin', 'operatingProfitMargin', 'ebitPerRevenue', 'currentRatio', 'cashPerShare']])
-plt.figure(figsize=(9,6))
-plt.bar(x=best_rating['Name'], height=best_rating['netProfitMargin'], color=('blue'))
-plt.xticks(rotation=45)
-plt.title('AAA Company Net profit margin', fontweight='bold')
+#Insight to CCC Ratings
+Worse_rating = data[data['Rating'].str[2] == 'C']
+print(Worse_rating[['Name', 'Rating', 'Sector', 'Rating Agency Name', 'Date','netProfitMargin', 'operatingProfitMargin', 'ebitPerRevenue', 'currentRatio', 'cashPerShare']])
+
+sns.set()
+bar=Worse_rating.groupby('Sector')['ebitPerRevenue'].mean()
+bar.plot(kind='barh', color = '#00cc99',rot=45, fontsize=8)
+plt.title('Gross Margin Avg per Sector', fontsize=14)
+plt.ylabel("Sector")                                                 
 plt.show()
-plt.savefig('AAA Company Net profit margin.png.')
 
 
-#Insight to company AT&T
+#plt.show()Insight to company AT&T
 data.set_index("Name", inplace=True)
 print(data.loc[['AT&T Inc.'], ['Rating', 'currentRatio', 'quickRatio', 'cashRatio']])
 
-url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=IBM&apikey=G3AIAWSMKK6WO6H9'
-r = requests.get(url)
-data = r.json()
-print(r.text)
+#url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=IBM&apikey=G3AIAWSMKK6WO6H9'
+#r = requests.get(url)
+#data = r.json()
+#print(r.text)
 
 
 
