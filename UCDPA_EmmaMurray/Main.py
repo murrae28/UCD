@@ -131,6 +131,13 @@ print(sector_data[['Name', 'Rating', 'debtEquityRatio', 'assetTurnover', 'payabl
 #Insight to AAA Ratings
 best_rating = data[data['Rating'].str[2] == 'A']
 print(best_rating[['Name', 'Rating', 'Rating Agency Name', 'Date','netProfitMargin', 'operatingProfitMargin', 'ebitPerRevenue', 'currentRatio', 'cashPerShare']])
+plt.figure(figsize=(9,6))
+plt.bar(x=best_rating['Name'], height=best_rating['netProfitMargin'], color=('blue'))
+plt.xticks(rotation=45)
+plt.title('AAA Company Net profit margin', fontweight='bold')
+plt.show()
+plt.savefig('AAA Company Net profit margin.png.')
+
 
 #Insight to company AT&T
 data.set_index("Name", inplace=True)
