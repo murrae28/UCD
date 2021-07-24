@@ -142,14 +142,15 @@ plt.ylabel("Sector")
 plt.show()
 
 
-#plt.show()Insight to company AT&T
+#Insight to company AT&T
 data.set_index("Name", inplace=True)
 print(data.loc[['AT&T Inc.'], ['Rating', 'currentRatio', 'quickRatio', 'cashRatio']])
 
-#url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=IBM&apikey=G3AIAWSMKK6WO6H9'
-#r = requests.get(url)
-#data = r.json()
-#print(r.text)
+#API
+url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=IBM&apikey=G3AIAWSMKK6WO6H9'
+r = requests.get(url)
+data = r.json()
+print(r.text)
 
 
 
