@@ -8,6 +8,9 @@ import requests
 data=pd.read_csv("corporate_rating.csv")
 data2=pd.read_csv("yahoo_stock.csv")
 
+print(data.shape)
+print(data2.shape)
+
 data_combined= pd.concat([data, data2])
 print(data_combined.shape)
 #data.append([data, data2], ignore_index=True, sort=True)
@@ -15,7 +18,7 @@ print(data_combined.shape)
 
 #running small checks to determine size of dataset
 print(data.head())
-print(data.shape)
+
 
 #checking for missing values
 missing_values_count = data.isnull().sum()
@@ -30,9 +33,9 @@ print(data[:3])
 drop_duplicates= data.drop_duplicates()
 print(data.shape,drop_duplicates.shape)
 
-#Identifying what rows have a A type rating
-is_a_rating=print(data['Rating'].isin(['A', 'AA', 'AAA']))
-Rating_A =['A', 'AA', 'AAA']
+#Identifying what rows have a B type rating
+is_a_rating=print(data['Rating'].isin(['B', 'BB', 'BBB']))
+#Rating_A =['A', 'AA', 'AAA']
 
 
 #Converting Margins % to whole numbers
@@ -51,16 +54,15 @@ data['OpProf_Marg'] = data['operatingProfitMargin'] * 100
 print(data.groupby(['Rating'], as_index=False).companyEquityMultiplier.max())
 
 
-sector_grouped = data.groupby('Sector').sum()[['grossProfitMargin','operatingProfitMargin','netProfitMargin']]
+sector_grouped = data.groupby('Sector').sum()[['grossProfitMargin','netProfitMargin']]
 print(sector_grouped)
 
 #Insight into Finance Sector
 data_sector =data.loc[data['Sector'] == 'Finance']
 Company= ['Equifax, Inc.', 'Marsh & McLennan Companies, Inc.', 'Aon plc', 'S&P Global Inc.', 'Progressive Corporation (The)', 'Loews Corporation']
 data.loc[data['Name'].isin(Company)]
-print(data.head())
 print(data.shape)
-print(data[['Name', 'Rating', 'debtEquityRatio', 'assetTurnover', 'netProfitMargin']])
+print(data_sector[['Name', 'Rating', 'debtEquityRatio', 'assetTurnover', 'netProfitMargin']])
 
 #plt.bar(Company, 'grossProfitMargin')
 #plt.show()
@@ -135,7 +137,7 @@ print(Worse_rating[['Name', 'Rating', 'Sector', 'Rating Agency Name', 'Date','ne
 sns.set()
 bar=Worse_rating.groupby('Sector')['ebitPerRevenue'].mean()
 bar.plot(kind='barh', color = '#00cc99',rot=45, fontsize=8)
-plt.title('Gross Margin Avg per Sector', fontsize=14)
+plt.title('Average EBIT per revenue per Sector', fontsize=14)
 plt.ylabel("Sector")                                                 
 plt.show()
 

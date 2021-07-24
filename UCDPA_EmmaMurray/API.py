@@ -4,3 +4,5 @@ url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&s
 r = requests.get(url)
 data = r.json()
 print(r.text)
+
+
